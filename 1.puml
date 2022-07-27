@@ -1,0 +1,79 @@
+@startuml "Przypadki użycia"
+left to right direction
+
+actor Klient as client
+actor Pizzerman as pizzerman
+actor "Operator płatności" as payments_operator
+actor "Operator dostaw" as delivery_operator
+
+rectangle "Zamawianie pizzy (aplikacja www dla pojedyńczej pizzerii)" {
+    (Aktualizacja listy dań [UC1]) as UC1
+    (Przeglądanie listy dań [UC2]) as UC2
+    (Złożenie zamówienia [UC3]) as UC3
+    (Przygotowanie do odbioru [UC4]) as UC4
+
+    client --> UC3
+    client --> UC2
+    pizzerman --> UC1
+    pizzerman --> UC3
+    pizzerman --> UC4
+    delivery_operator --> UC4
+    payments_operator --> UC3
+    payments_operator --> UC4
+}
+@enduml
+
+@startuml "Diagram klas"
+class Object << general >>
+    Object <|--- ArrayList
+
+    note top of Object : In java, every class\nextends this one.
+
+    note "This is a floating note" as N1
+    note "This is a floating note" as N3
+    note "This note is connected\nto several objects." as N2
+    Object .. N2
+    N2 .. ArrayList
+
+    class ListaPizz
+    note left: Lista wszystkich pizz dostępnych dla klientów do stworzenia zamówienia
+
+    class Pizza
+    note left: On last defined class
+
+    class Zamówienie
+
+    ListaPizz *-- Pizza : zawiera
+@enduml
+
+@startuml "Stany Zamówienia"
+state Zamówienie {
+    state "Stworzone" as Created
+    state "Opłacone" as Payed
+    state "Przyjęte" as Accepted
+    state "Zrealizowane" as Finished
+    state "Odebrane" as Delivered
+    [*] --> Created
+    Created -> Payed
+    Payed --> Accepted
+    Accepted -> Finished
+    Finished -> Delivered
+    Delivered --> [*]
+}
+@enduml
+
+@startuml "Stany Zamówienia1"
+state Zamówienie {
+    state "Stworzone" as Created
+    state "Opłacone" as Payed
+    state "Przyjęte" as Accepted
+    state "Zrealizowane" as Finished
+    state "Odebrane" as Delivered
+    [*] --> Created
+    Created -> Payed
+    Payed --> Accepted
+    Accepted -> Finished
+    Finished -> Delivered
+    Delivered --> [*]
+}
+@enduml
