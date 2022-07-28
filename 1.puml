@@ -1,4 +1,4 @@
-@startuml "Przypadki użycia"
+@startuml "Zadanie 1 Przypadki użycia"
 left to right direction
 
 actor Klient as client
