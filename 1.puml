@@ -23,9 +23,13 @@ rectangle "Zamawianie pizzy (aplikacja www dla pojedyńczej pizzerii)" {
 }
 @enduml
 
-@startuml "Diagram klas"
-    class ListaPizz
+@startuml "Zadanie 2 Diagram klas"
+    class ListaDań
     note left: Lista wszystkich rodzajów pizzy dostępnych dla klientów do stworzenia zamówienia
+
+    class DoRealizacji {
+    }
+    note left: Lista opłaconych zamówień, do realizacji
 
     class Pizza {
         String nazwa
@@ -38,11 +42,18 @@ rectangle "Zamawianie pizzy (aplikacja www dla pojedyńczej pizzerii)" {
         Na przykład 'Mała, Średnia, Duża, Familijna'
     end note
 
+    class AdresDostawy {
+        String ulica
+        String numerDomu
+        String numerMieszkania
+    }
+
     class Zamówienie {
         Pizza pizza
         Integer ilość
         Płatność płatność
         StatusZamówienia status
+        AdresDostawy adresDostawy
     }
 
     enum StatusZamówienia {
@@ -55,25 +66,93 @@ rectangle "Zamawianie pizzy (aplikacja www dla pojedyńczej pizzerii)" {
 
     }
 
-    ListaPizz o-- Pizza : zawiera
+    ListaDań o-- Pizza : zawiera
     Płatność --> Zamówienie : opłaca
-    Zamówienie o-- Pizza
+    Zamówienie "1" o-- "many" Pizza
+    Zamówienie *-- AdresDostawy
+    DoRealizacji o-- Zamówienie
 
 @enduml
 
-@startuml "Stany Zamówienia"
+Klient wprowadza adres dostaw
+
+@startuml "Zadanie 3 diagram interakcji UC3"
+(*) --> UC3
+--> Klient wprowadza adres dostawy
+--> Klient dodaje / usuwa pozycje listy dań do Zamówienia
+--> Klient zatwierdza zamówienie
+--> Opłacenie zamówienia na stronie 'Realizatora Płatności'
+--> Dodanie opłaconego zamówienia do listy 'Do realizacji'
+--> Poinformowanie Klienta o przyjęciu zlecenia
+--> (*)
+@enduml
+
+
+@startuml "Zadanie 3 diagram interakcji UC4"
+(*) --> UC4
+--> if "Zmiana statusu realizacji na" then
+    -right-> [Anulowane przez nas] Status zamówienia jest Anulowane
+    --> Dodanie opisu Zamówienia 'anulowana przez nas'
+    --> if "Zwrot środków za zamówienie na konto zleceiodawcy" then
+      --> [udany] Pozycja na liście 'Do realizacji' jest w stanie 'środki zwrócone'
+    else
+      -right-> [odrzucony] Dodanie opisu Zamówienia 'do rozliczenia, awaria systemu płatności'
+    endif
+else
+    -----> if "Zmiana statusu realizacji na" then
+        -right-> [Anulowana przez klienta] "Status zamówienia jest Anulowane" as Cancelled2
+        --> Dodanie opisu Zamówienia 'Anulowana przez klienta'
+    else
+    endif
+    ---> Pozycja na liście 'Do realizacji' jest 'Gotowe do odbioru'
+    --> if "Przyjęte do transportu?" then
+        --> [tak] "Dostarczone do klienta"
+        else
+            -right-> [nie] "Oznaczenie zamówienia jako Anulowane" as Cancelled3
+            if "Zwrot środków za Zamówienie" then
+            else
+                -right-> [odrzucony] "Dodanie opisu 'Anulowana z przyczyn technicznych - brak możliwości dostawy, do rozliczenia'"
+            endif
+        endif
+endif
+@enduml
+
+
+@startuml "Zadanie 4 Stany Zamówienia"
 state Zamówienie {
     state "Stworzone" as Created
     state "Opłacone" as Payed
-    state "Przyjęte" as Accepted
-    state "Zrealizowane" as Finished
-    state "Odebrane" as Delivered
+    state "Gotowe do odbioru" as Finished
+    state "Wydane" as Issued
+    state "W drodze" as Delivered
+    state "Anulowane" as Cancelled
+    state "Środki zwrócone" as Refunded
     [*] --> Created
-    Created -> Payed
-    Payed --> Accepted
-    Accepted -> Finished
-    Finished -> Delivered
+    Created --> Payed
+    Payed --> Finished
+    Payed -> Cancelled
+    Finished --> Issued
+    Finished -> Cancelled
+    Issued -> Delivered
+    Cancelled ---> Refunded
+    Refunded --> [*]
+    Cancelled --> [*]
     Delivered --> [*]
 }
+@enduml
+
+@startuml "Zadanie 5 Diagram aktywności"
+actor "Pizzerman" as Pizzerman
+note over Pizzerman : Diagram stanów zawiera wyłącznie możliwe przejścia \npomiędzy stanami, podczas gdy diagram aktywności pokazuje\njak wygląda interakcja między aktorami / systemami tak, aby zmiany stanów odbywały się.
+actor "Klient" as Client
+control "Operator Płatności" as PaymentOperator
+control "Operator Dostaw" as DeliveryOperator
+entity "Zamówienie" as Order
+Client -> Order : Stworzone
+Client -> PaymentOperator : Prezkazanie środków
+PaymentOperator -> Order :  Opłacone
+Pizzerman -> Order : Gotowe do odbioru
+DeliveryOperator -> Order : W drodze 
+DeliveryOperator -> Order : Wydane 
 @enduml
 
