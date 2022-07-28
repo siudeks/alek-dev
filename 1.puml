@@ -74,7 +74,6 @@ rectangle "Zamawianie pizzy (aplikacja www dla pojedyńczej pizzerii)" {
 
 @enduml
 
-Klient wprowadza adres dostaw
 
 @startuml "Zadanie 3 diagram interakcji UC3"
 (*) --> UC3
