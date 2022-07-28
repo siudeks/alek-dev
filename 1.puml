@@ -24,26 +24,41 @@ rectangle "Zamawianie pizzy (aplikacja www dla pojedyńczej pizzerii)" {
 @enduml
 
 @startuml "Diagram klas"
-class Object << general >>
-    Object <|--- ArrayList
-
-    note top of Object : In java, every class\nextends this one.
-
-    note "This is a floating note" as N1
-    note "This is a floating note" as N3
-    note "This note is connected\nto several objects." as N2
-    Object .. N2
-    N2 .. ArrayList
-
     class ListaPizz
-    note left: Lista wszystkich pizz dostępnych dla klientów do stworzenia zamówienia
+    note left: Lista wszystkich rodzajów pizzy dostępnych dla klientów do stworzenia zamówienia
 
-    class Pizza
-    note left: On last defined class
+    class Pizza {
+        String nazwa
+        String rozmiar
+    }
+    note left of Pizza::nazwa
+        Na przykład 'Hawajska'
+    end note
+    note left of Pizza::rozmiar
+        Na przykład 'Mała, Średnia, Duża, Familijna'
+    end note
 
-    class Zamówienie
+    class Zamówienie {
+        Pizza pizza
+        Integer ilość
+        Płatność płatność
+        StatusZamówienia status
+    }
 
-    ListaPizz *-- Pizza : zawiera
+    enum StatusZamówienia {
+        STWORZONE
+        ...
+        ODEBRANE
+    }
+
+    class Płatność {
+
+    }
+
+    ListaPizz o-- Pizza : zawiera
+    Płatność --> Zamówienie : opłaca
+    Zamówienie o-- Pizza
+
 @enduml
 
 @startuml "Stany Zamówienia"
@@ -62,18 +77,3 @@ state Zamówienie {
 }
 @enduml
 
-@startuml "Stany Zamówienia1"
-state Zamówienie {
-    state "Stworzone" as Created
-    state "Opłacone" as Payed
-    state "Przyjęte" as Accepted
-    state "Zrealizowane" as Finished
-    state "Odebrane" as Delivered
-    [*] --> Created
-    Created -> Payed
-    Payed --> Accepted
-    Accepted -> Finished
-    Finished -> Delivered
-    Delivered --> [*]
-}
-@enduml
