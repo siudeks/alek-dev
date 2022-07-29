@@ -155,3 +155,49 @@ DeliveryOperator -> Order : W drodze
 DeliveryOperator -> Order : Wydane 
 @enduml
 
+
+Use Case 3
+
+Scenariusz testowy: Złożenie zmaówienia
+Warunki początkowe:
+- Pizzerman jest zalogowany do aplikacji
+- Operator płatności jest online
+Kroki:
+- Klient uruchamia aplikację
+- Klient tworzy zamówienie
+- Klient opłaca zamówienie
+Oczekiwany rezultat:
+- Pizzerman widzi nowe zamówienie na końcu listy 'Do realizacji'
+- Klient ma potwierdzenie o przyjęciu zamówienia
+
+
+Use case 4
+Scenariusz testowy: Odbiór zamówienia
+Warunki początkowe:
+- Pizzerman jest zalogowany do aplikacji
+- Operator dostaw jest online
+- Lista 'Do realizacji' jest niepusta
+Kroki:
+- Pizzerman oznacza Pozycję 'Gotowa do odbioru'
+- Operator dostaw przyjmuje zlecenie dostarczenie Pozycji
+- Pizzerman oznacza Pozycję jako 'wydana'
+- Operator dostaw oznacza Pozycję jako 'W drodze'
+- Pozycja zostaje dostarczona do Klienta
+- Pozycja znika z list 'Do Realizacji'
+- Pozycja pojawia się na liście 'Zrealizowane'
+Oczekiwany rezultat:
+- Pozycja zostaje dostarczona do Klienta
+- Pozycja pojawia się na liście 'Zrealizowane'
+
+Use case 5 (nie istniejący)
+Scenariusz testowy: Pozytywne rozpatrzenie reklamacji
+Warunki początkowe:
+- Pozycja jest się na liście 'Zrealizowane'
+- Klient reklamuję dostarczoną Pizzę dowolną metodą (telefon, email)
+- Operator Płatności jest online
+Kroki:
+- Szef Zmiany oznacza reklamowaną Pozycję jako 'Reklamacja'
+- Operator Płatności przelewa z konta Firmy na konto Klienta kwotę za Pozycję, pomniejszoną o kwoty pośrednika (Operatora Płatności)
+Oczekiwany rezultat:
+- Pozycja zostaje oznaczona jako 'Reklamacja'
+- Klient dostaje zwrot środkó na swoje konto
