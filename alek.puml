@@ -202,3 +202,17 @@ Kroki:
 Oczekiwany rezultat:
 - Pozycja zostaje oznaczona jako 'Reklamacja'
 - Klient dostaje zwrot środkó na swoje konto
+
+
+@startuml "Diagram interakcji UC5"
+(*) --> UC5
+--> Pozycja jest się na liście 'Zrealizowane'
+--> Klient reklamuję dostarczoną Pizzę dowolną metodą (telefon, email)
+--> Operator Płatności jest online
+--> if "Szef Zmiany oznacza reklamowaną Pozycję jako 'Reklamacja'" then
+    -right-> [Nieuznana reklamacja] Reklamacja odrzucona
+else
+    --> Zleceni zwrotu środków
+    --> Powiadomienie składającego reklamację
+endif
+@enduml
