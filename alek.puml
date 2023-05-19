@@ -216,3 +216,20 @@ else
     --> Powiadomienie składającego reklamację
 endif
 @enduml
+
+@startuml "Diagram sekwencji Odbiór Zamówienia"
+    participant Pizzerman
+    participant Kasjer
+    participant Kurier
+    participant Odbiorca
+    participant System
+
+    Pizzerman --> Kasjer : Zamówienie gotowe
+    Kasjer --> Kurier : Zlecenie transportu
+    Kasjer --> Kurier : Wydanie towaru
+    Kasjer --> System : Zapisanie wydania towaru
+    Kurier --> System : Oznaczenie statusu towaru 'W drodze'
+    Kurier --> Odbiorca : Wydanie towaru
+    Kurier --> System : Oznaczenie statusu towaru 'Zrealizowane'
+
+@enduml
