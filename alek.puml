@@ -22,6 +22,7 @@ rectangle "Zamawianie pizzy (aplikacja www dla pojedyńczej pizzerii)" {
     payments_operator --> UC4
 }
 @enduml
+diagram przypadkow uzycia przedstawia mozliwosci systemu informatycznego dla zamowienia pizzy z aplikacji internetowej
 
 @startuml "Zadanie 2 Diagram klas"
     class ListaDań
@@ -73,7 +74,7 @@ rectangle "Zamawianie pizzy (aplikacja www dla pojedyńczej pizzerii)" {
     DoRealizacji o-- Zamówienie
 
 @enduml
-
+diagram klas pokazuje kluczowe klasy i wazne interakcje miedzy nimi ,pozwalajace tworzyc kod z wspolnym rozumieniem fundamentalnych elementow(building blocks)
 
 @startuml "Zadanie 3 diagram interakcji UC3"
 (*) --> UC3
@@ -154,7 +155,7 @@ Pizzerman -> Order : Gotowe do odbioru
 DeliveryOperator -> Order : W drodze 
 DeliveryOperator -> Order : Wydane 
 @enduml
-
+diagram aktywnosci prezentuje przeplyw aktywnosci miedzy aktoramia a elementami systemu do stworzenia zamowienia do wydania pizzy
 
 Use Case 3
 
@@ -233,3 +234,4 @@ endif
     Kurier --> System : Oznaczenie statusu towaru 'Zrealizowane'
 
 @enduml
+diagram sekwencji to sekewencja sygnalow pomiedzy aktorami , wystepujacych przy wydaniu pizzy(towaru).
