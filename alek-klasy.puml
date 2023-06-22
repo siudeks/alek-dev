@@ -1,0 +1,187 @@
+@startuml
+class ListaDań {
+  -id: int
+  -dish_name: String
+  -dish_description: String
+  +getDishName(): String
+  +getDishDescription(): String
+  +setDishName(name: String): void
+  +setDishDescription(description: String): void
+}
+
+class DoRealizacji {
+  -id: int
+  -order_id: int
+  +getId(): int
+  +getOrderId(): int
+  +setId(id: int): void
+  +setOrderId(orderId: int): void
+}
+
+class Pizza {
+  -id: int
+  -pizza_name: String
+  -pizza_size: String
+  +getPizzaName(): String
+  +getPizzaSize(): String
+  +setPizzaName(name: String): void
+  +setPizzaSize(size: String): void
+}
+
+class AdresDostawy {
+  -id: int
+  -street: String
+  -house_number: String
+  -apartment_number: String
+  +getStreet(): String
+  +getHouseNumber(): String
+  +getApartmentNumber(): String
+  +setStreet(street: String): void
+  +setHouseNumber(houseNumber: String): void
+  +setApartmentNumber(apartmentNumber: String): void
+}
+
+class Zamówienie {
+  -id: int
+  -pizza_id: int
+  -quantity: int
+  -payment_id: int
+  -delivery_address_id: int
+  -status: String
+  +getId(): int
+  +getPizzaId(): int
+  +getQuantity(): int
+  +getPaymentId(): int
+  +getDeliveryAddressId(): int
+  +getStatus(): String
+  +setId(id: int): void
+  +setPizzaId(pizzaId: int): void
+  +setQuantity(quantity: int): void
+  +setPaymentId(paymentId: int): void
+  +setDeliveryAddressId(deliveryAddressId: int): void
+  +setStatus(status: String): void
+}
+
+class Płatność {
+  -id: int
+  +getId(): int
+}
+
+ListaDań o-- Pizza
+Pizza o-- Zamówienie
+Zamówienie o-- AdresDostawy
+Zamówienie o-- Płatność
+
+@enduml
+
+
+@startuml
+
+skinparam class {
+    BackgroundColor White
+    BorderColor Black
+}
+
+left to right direction
+
+class PizzaOrderService {
+  - listaDańRepository: ListaDańRepository
+  - doRealizacjiRepository: DoRealizacjiRepository
+  - pizzaRepository: PizzaRepository
+  - adresDostawyRepository: AdresDostawyRepository
+  - zamówienieRepository: ZamówienieRepository
+  - paymentStrategy: PaymentStrategy
+  - deliveryStrategy: DeliveryStrategy
+
+  + PizzaOrderService(listaDańRepository: ListaDańRepository, doRealizacjiRepository: DoRealizacjiRepository,
+                      pizzaRepository: PizzaRepository, adresDostawyRepository: AdresDostawyRepository,
+                      zamówienieRepository: ZamówienieRepository)
+  + złożenieZamówienia(pizzaId: int, quantity: int, paymentId: int, deliveryAddressId: int): void
+  + odbiórZamówienia(orderId: int): void
+}
+
+class PizzaOrderServiceFactory {
+  + createPizzaOrderService(): PizzaOrderService
+}
+
+class ListaDańRepository {
+  + getAllDishes(): List<Dish>
+}
+
+class DoRealizacjiRepository {
+  + getUnprocessedOrders(): List<Order>
+}
+
+class PizzaRepository {
+  + getPizzaById(pizzaId: int): Pizza
+}
+
+class AdresDostawyRepository {
+  + getAddressById(addressId: int): Address
+}
+
+class ZamówienieRepository {
+  + saveOrder(order: Order): void
+}
+
+class PizzaOrderServiceFactory {
+  + getInstance(): PizzaOrderServiceFactory
+}
+
+interface PaymentStrategy {
+  + pay(paymentId: int): void
+}
+
+class CreditCardPaymentStrategy {
+  + pay(paymentId: int): void
+}
+
+class CashPaymentStrategy {
+  + pay(paymentId: int): void
+}
+
+interface DeliveryStrategy {
+  + deliver(deliveryAddressId: int): void
+}
+
+class HomeDeliveryStrategy {
+  + deliver(deliveryAddressId: int): void
+}
+
+class PickupDeliveryStrategy {
+  + deliver(deliveryAddressId: int): void
+}
+
+PizzaOrderServiceFactory --> PizzaOrderService: creates
+
+PizzaOrderService --> ListaDańRepository
+PizzaOrderService --> DoRealizacjiRepository
+PizzaOrderService --> PizzaRepository
+PizzaOrderService --> AdresDostawyRepository
+PizzaOrderService --> ZamówienieRepository
+
+PizzaOrderServiceFactory --> PaymentStrategy
+PizzaOrderServiceFactory --> DeliveryStrategy
+
+PizzaOrderService --> PaymentStrategy
+PizzaOrderService --> DeliveryStrategy
+
+note top of PizzaOrderServiceFactory: <<Fabryka>>\nFabryka serwisu zamówień\n(odpowiedzialna za tworzenie instancji\nklasy PizzaOrderService)
+note top of PaymentStrategy: <<Strategia>>\nStrategia płatności\n(definiuje interfejs dla różnych\nstrategii płatności)
+note top of DeliveryStrategy: <<Strategia>>\nStrategia dostawy\n(definiuje interfejs dla różnych\nstrategii dostawy)
+note left of PizzaOrderService: Serwis zamówień\n(realizuje logikę obsługi zamówień,\nwspółpracuje z repozytoriami i strategiami)
+
+note bottom of CreditCardPaymentStrategy: Konkretna strategia płatności\n(dla płatności kartą kredytową)
+note bottom of CashPaymentStrategy: Konkretna strategia płatności\n(dla płatności gotówką)
+note bottom of HomeDeliveryStrategy: Konkretna strategia dostawy\n(dostawa do domu)
+note bottom of PickupDeliveryStrategy: Konkretna strategia dostawy\n(odbiór osobisty)
+
+note right of ListaDańRepository: Repozytorium\n(dostęp do listy dań)
+note right of DoRealizacjiRepository: Repozytorium\n(dostęp do zamówień do realizacji)
+note right of PizzaRepository: Repozytorium\n(dostęp do informacji o pizzach)
+note right of AdresDostawyRepository: Repozytorium\n(dostęp do informacji o adresach dostawy)
+note right of ZamówienieRepository: Repozytorium\n(dostęp do zamówień)
+
+@enduml
+
+

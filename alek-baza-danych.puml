@@ -1,0 +1,49 @@
+@startuml
+entity "ListaDań" as Menu {
+  +id (PK)
+  --
+  dish_name
+  dish_description
+}
+
+entity "DoRealizacji" as ToBeProcessed {
+  +id (PK)
+  --
+  order_id (FK)
+}
+
+entity "Pizza" as Pizza {
+  +id (PK)
+  --
+  pizza_name
+  pizza_size
+}
+
+entity "AdresDostawy" as DeliveryAddress {
+  +id (PK)
+  --
+  street
+  house_number
+  apartment_number
+}
+
+entity "Zamówienie" as Order {
+  +id (PK)
+  --
+  pizza_id (FK)
+  quantity
+  payment_id (FK)
+  delivery_address_id (FK)
+  status
+}
+
+entity "Płatność" as Payment {
+  +id (PK)
+}
+
+Menu }|..|| Pizza
+Pizza }o--|| Order
+Order }o--|| ToBeProcessed
+Order }o--|| DeliveryAddress
+Order }o--|| Payment
+@enduml
