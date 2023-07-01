@@ -1,0 +1,43 @@
+@startuml
+start
+if (Czy inwestycja, co do zasad ogólnych, jest zgodna z zasadami zrównoważonego rozwoju?) then (tak)
+
+    :Stworzenie listy technologii i narzędzi
+    - ocena zgodności w aspekcie zrównoważonego rozwoju;
+    - wybór technologii;
+    if (Czy wybrane technologie i narzędzia są wystarczająco zgodne z zasadami zrównoważonego rozwoju?) then (tak)
+      
+    else (nie)
+      :Powrót do modyfikacji list technologii i narzędzi;
+      stop
+    endif
+
+    :Stworzenie listy dostawców
+    -Ocena dostawców pod kątem zrównoważonego rozwoju:
+    -kontrola emisji gazów cieplarnianych i szkodliwych substancji
+    -optymalizacja wykorzystania zasobów naturalnych
+    -energia
+    -woda
+    -surowce
+    -poddostawcy;
+    :Wybór dostawców;
+    if (Czy dostawcy zapewniają wystarczającą zgodność z zasadami zrównoważonego rozwoju?) then (tak)
+        if (Czy wszystkie wymagania niefunkcjonalne są spełnione?) then (tak)
+            :-Bezpieczeństwo danych
+            -Wydajność;
+            -Integracja z innymi systemami;
+            :Inwestycja jest zgodna z zasadami zrównoważonego rozwoju;
+            stop
+        else (nie)
+            :Należy zmodyfikować plan inwestycji pod katem wymagań niefunkcjonalnych;
+            stop
+        endif
+    else (nie)
+        :Powrót do modyfikacji listy dostawców;
+        stop
+    endif
+else (nie)
+    :Należy zmodyfikować plan inwestycji;
+    stop
+endif
+@enduml
