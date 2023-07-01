@@ -41,8 +41,19 @@ Istniejące dokumenty, opisujące cele związane ze zrównoważonym rozwojem, kt
   - więcej: https://www.gov.pl/web/fundusze-regiony/raportowanie-spoleczne
 
 ### 1.2
+Drzwwo decyzyjne wspierania decyzji przy planowaniuinwestycji  inwestycji.  
 ![](diagram1.png)
 
 
 
-  * PRZENIEŚĆ DO ZARZĄDZANIA PRODUKACJĄ: Historia okresowego monitorowanie zgodności dostawców z nowymi wynikami audytów
+## Zadanie 2
+
+Utrzymanie produkcji w zgodności z celami klimatycznymi może obejmować:
+- Monitorowanie istotnych elementów procesu produkcji, takich jak:
+  - zużycie energii
+  - zużycie surowców
+- System rekomendacji, bazujący na monitorowanych pomiarach, regularnie dostarczany użytkownikom, dotyczący możliwych ryzyk, zmian w systemie, za;ecanych usprawnień
+- Podejmowanie przez System autonomicznych decyzji w starannie dobraych obszarach, jak np.
+  - preferowanie źródeł (energetycznych i surowcowych) odnawialnych, uzupełnianych zapasowymi wg potrzeb.
+  - okresowe wyłączannie elementów produkcyjnych na podstawie przewidywanego zmniejszonego popytu. Przewidywanie budowane z użyciem AI na podstawie danych historycznychw
+- Monitorowanie i reakcje powinny odbywać się w czasie rzeczywistym
