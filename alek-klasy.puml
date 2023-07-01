@@ -72,11 +72,6 @@ Pizza o-- Zamówienie
 Zamówienie o-- AdresDostawy
 Zamówienie o-- Płatność
 
-@enduml
-
-
-@startuml
-
 skinparam class {
     BackgroundColor White
     BorderColor Black
