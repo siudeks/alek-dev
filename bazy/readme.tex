@@ -8,6 +8,18 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 
+% Minimalizacja marginesów
+\usepackage[portrait]{geometry}
+\geometry{
+    left=20mm,
+    right=20mm,
+    top=20mm,
+    bottom=20mm,
+    headheight=15pt,
+    voffset=10pt,
+    footskip=15pt
+}
+
 \begin{document}
 
 
@@ -25,7 +37,7 @@ Wynajem kortów tenisowych buduje problem  związanych z efektywnym i planowym u
 W ramach domeny nie uwzględniamy elementów kosztowych  które leżą w kompetencji działu finansowo księgowego które jako oprogramowanie specjalistyczne  wychodzi poza zakres naszej prostej aplikacji.
 
 
-\section*{3. Przykłady możliwych zapytańw jezyku naturalnym}
+\section*{3. Możliwe zapytania w języku naturalnym}
 
 \noindent
 
@@ -40,14 +52,14 @@ W ramach domeny nie uwzględniamy elementów kosztowych  które leżą w kompete
 
 \section*{4. Podstawowe kategorie obiektów i ich atrybuty}
 
-\subsection*{Korty}
+\subsection*{Tabela: Korty}
 •	KortID (Klucz główny, automatycznie generowany identyfikator)\\
 •	NumerKortu (numer identyfikacyjny kortu)\\
 •	TypKortu (np. nawierzchnia, oświetlenie)\\
 •	CenaGodzinowa (cena za godzinę wynajmu)\\
 •	Inne informacje związane z kortem\\
 
-\subsection*{Klienci}
+\subsection*{Tabela: Klienci}
 •	KlientID (Klucz główny, automatycznie generowany identyfikator)\\
 •	Imię\\
 •	Nazwisko\\
@@ -56,7 +68,7 @@ W ramach domeny nie uwzględniamy elementów kosztowych  które leżą w kompete
 •	Email\\
 •	Inne informacje o kliencie
 
-\subsection*{Rezerwacje}
+\subsection*{Tabela: Rezerwacje}
 •	RezerwacjaID (Klucz główny, automatycznie generowany identyfikator)\\
 •	KortID (Klucz obcy, odniesienie do Kortu)\\
 •	KlientID (Klucz obcy, odniesienie do Klienta)\\
@@ -66,7 +78,7 @@ W ramach domeny nie uwzględniamy elementów kosztowych  które leżą w kompete
 •	StatusRezerwacji (status rezerwacji, np. Anulowana, Zrealizowana)\\
 •	Inne informacje związane z rezerwacją\\
 
-\subsection*{Pracownicy}
+\subsection*{Tabela: Pracownicy}
 •	PracownikID (Klucz główny, automatycznie generowany identyfikator)\\
 •	Imię\\
 •	Nazwisko\\
@@ -75,7 +87,7 @@ W ramach domeny nie uwzględniamy elementów kosztowych  które leżą w kompete
 •	Wynagrodzenie\\
 •	Inne informacje o pracowniku
 
-\subsection*{ObsługaKortow}
+\subsection*{Tabela: ObsługaKortow}
 •	MaintenanceID (Klucz główny, automatycznie generowany identyfikator)\\
 •	KortID (Klucz obcy, odniesienie do Kortu)\\
 •	PracownikId (pracownik, odpowiedzialny za realizację zadania)\\
