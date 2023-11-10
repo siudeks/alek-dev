@@ -9,6 +9,13 @@
             "name": "Calc1Application",
             "request": "launch",
             "mainClass": "com.example.calc1.Calc1Application",
+            "projectName": "calc"
+        },
+        {
+            "type": "java",
+            "name": "Calc1Application",
+            "request": "launch",
+            "mainClass": "com.example.calc1.Calc1Application",
             "projectName": "calc1"
         }
     ]
