@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Spring Boot Thymeleaf Hello World Example</title>
+
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css} " />
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="#">Mkyong.com</a>
+    </nav>
+
+    <main role="main" class="container">
+
+
+        <h2>Result</h2>
+        <div class="my-3">
+            <p><strong>ID:</strong> <span th:text="${project.id}"></span></p>
+            <p><strong>Title:</strong> <span th:text="${project.title}"></span></p>
+            <p><strong>Type:</strong> <span th:text="${project.type}"></span></p>
+            <p><strong>Color:</strong> <span th:text="${project.color}"></span></p>
+            <p><strong>Description:</strong> <span th:text="${project.description}"></span></p>
+            <p><strong>Days:</strong> <span th:text="${project.days}"></span></p>
+            <p><strong>Price:</strong> <span th:text="${project.price}"></span></p>
+            <p><strong>Featured:</strong> <span th:text="${project.featured} ? 'Yes' : 'No'"></span></p>
+            <p><strong>Launch Date:</strong> <span th:text="${project.launchDate}"></span></p>
+        </div>
+        <a th:href="@{/create-project}">Add new project</a>
+
+        
+    </main>
+    <!-- /.container -->
+
+</body>
+
+</html>
