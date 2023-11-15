@@ -7,7 +7,7 @@
 
     <title>Spring Boot Thymeleaf Hello World Example</title>
 
-    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css} "/>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css} " />
 
 </head>
 
@@ -25,6 +25,13 @@
                 <span th:text="'Hello, ' + ${message}"></span>
             </h2>
         </div>
+
+
+        <label for="exampleColorInput" class="form-label">Color picker</label>
+        <input type="color" class="form-control form-control-color" id="exampleColorInput" value="#563d7c" title="Choose your color">
+
+
+
 
         <ol>
             <li th:each="task : ${tasks}" th:text="${task}"></li>
