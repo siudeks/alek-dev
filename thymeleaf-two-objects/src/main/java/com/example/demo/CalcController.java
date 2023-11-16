@@ -14,38 +14,17 @@ import java.util.List;
 @Controller
 public class CalcController {
 
-    // inject via application.properties
-    @Value("${welcome.message}")
-    private String message;
-
-    private List<String> tasks = Arrays.asList("a", "b", "c", "d", "e", "f", "g");
-
     @GetMapping("/")
     public String main(Model model) {
-        model.addAttribute("message", message);
-        model.addAttribute("tasks", tasks);
+        var person = new Person();
+        person.setFirstName("Aleksander");
+        var pet = new Pet();
+        pet.setName("kroliczek");
         model.addAttribute("project", new Project());
+        model.addAttribute("pet", pet);
+        model.addAttribute("person", person);
 
-        return "calc"; // view
+        return "result"; // view
     }
-
-    // /hello?name=kotlin
-    @GetMapping("/hello")
-    public String mainWithParam(
-            @RequestParam(name = "name", required = false, defaultValue = "") String name, Model model) {
-
-        model.addAttribute("message", name);
-
-        return "calc"; // view
-    }
-
-    @PostMapping("/save-project")
-    public String saveProjectSubmission(@ModelAttribute Project project) {
-
-        // TODO: save project in DB here
-
-        return "result";
-    }
-    
 
 }
