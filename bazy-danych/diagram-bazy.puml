@@ -1,0 +1,52 @@
+@startuml  
+entity "Korty" as korty {  
+  + KortID : int  
+  --  
+  NumerKortu : int  
+  TypKortu : string  
+  CenaGodzinowa : decimal  
+}  
+  
+entity "Klienci" as klienci {  
+  + KlientID : int  
+  --  
+  Imię : string  
+  Nazwisko : string  
+  Adres : string  
+  Telefon : string  
+  Email : string  
+}  
+  
+entity "Rezerwacje" as rezerwacje {  
+  + RezerwacjaID : int  
+  --  
+  DataRozpoczęcia : datetime  
+  DataZakończenia : datetime  
+  Opłata : decimal  
+  StatusRezerwacji : string  
+}  
+  
+entity "Pracownicy" as pracownicy {  
+  + PracownikID : int  
+  --  
+  Imię : string  
+  Nazwisko : string  
+  Stanowisko : string  
+  DataZatrudnienia : datetime  
+  Wynagrodzenie : decimal  
+}  
+  
+entity "ObsługaKortow" as obsluga {  
+  + MaintenanceID : int  
+  --  
+  DataRaporu : datetime  
+  OpisProblemu : string  
+  Status : string  
+  Koszty : decimal  
+}  
+  
+korty ||--o{ rezerwacje : zawiera
+klienci ||--o{ rezerwacje : używa  
+pracownicy ||--o{ obsluga : zarządza
+korty ||--o{ obsluga : potrzebuje
+@enduml  
