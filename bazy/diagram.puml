@@ -1,0 +1,54 @@
+@startuml
+class Korty {
+  + KortId INTEGER <<PK>>
+  --
+  NumerKortu VARCHAR(50)
+  TypKortu VARCHAR(10)
+  CenaGodzinowa NUMERIC
+}
+
+class Klienci {
+  + KlientID INTEGER <<PK>>
+  --
+  Imię VARCHAR(50)
+  Nazwisko VARCHAR(50)
+  Adres VARCHAR(200)
+  Telefon VARCHAR(20)
+  Email VARCHAR(50)
+}
+
+class Rezerwacje {
+  + RezerwacjaID INTEGER <<PK>>
+  --
+  KortID INTEGER <<FK>>
+  KlientID INTEGER <<FK>>
+  DataRozpoczęcia TIMESTAMP
+  DataZakończenia TIMESTAMP
+  Opłata NUMERIC
+  StatusRezerwacji VARCHAR(20)
+}
+
+class Pracownicy {
+  + PracownikID INTEGER <<PK>>
+  --
+  Imię VARCHAR(50)
+  Nazwisko VARCHAR(50)
+  Stanowisko VARCHAR(50)
+}
+
+class ObslugaKortow {
+  + MaintenanceID INTEGER <<PK>>
+  --
+  KortID INTEGER <<FK>>
+  PracownikID INTEGER <<FK>>
+  DataRaportu TIMESTAMP
+  OpisProblemu TEXT
+  Status VARCHAR(20)
+  Koszty NUMERIC
+}
+
+Korty "1" --o "1..*" Rezerwacje
+Klienci "1" --o "*" Rezerwacje
+Korty "1" --o "*" ObslugaKortow
+Pracownicy "1" --o "*" ObslugaKortow
+@enduml

@@ -1,5 +1,5 @@
 \documentclass{article}
-
+\usepackage{graphicx}
 
 % Prawidłowe dzielenie polskich wyrazów na sylaby przy przenoszeniu do następnej linii
 \usepackage[polish]{babel} 
@@ -26,18 +26,18 @@
 \section*{0. Projekt 'Rezerwacja kortów tenisowych'}
 Cel - Realizacja zadania z baz danych  laboratorium 
 
-\section*{1. Opis zawartości}
+\subsection*{1. Opis zawartości}
 
 Baza zawiera dane na temat wynajmów kortów tenisowych pozwalających na wykonanie analiz przychodów dotyczących wynajmu kortów nie zrealizowanych gier na kortach, posiada również informacje o klientach oraz wsparciu kortów pozwalając dokonywać analiz dotyczących ich wynajmu.
 
 
-\section*{2. Ogólny opis domenty}
+\subsection*{2. Ogólny opis domenty}
 
 Wynajem kortów tenisowych buduje problem  związanych z efektywnym i planowym udostępnianiem powierzchni dla zainteresowanych graczy , tworzeniem statystyk wynajmu oraz badaniem jakości obsługi poprzez obserwacje incydentów związanych z utrzymaniem obiektu.
 W ramach domeny nie uwzględniamy elementów kosztowych  które leżą w kompetencji działu finansowo księgowego które jako oprogramowanie specjalistyczne  wychodzi poza zakres naszej prostej aplikacji.
 
 
-\section*{3. Możliwe zapytania w języku naturalnym}
+\subsection*{3. Możliwe zapytania w języku naturalnym}
 
 \noindent
 
@@ -50,16 +50,16 @@ W ramach domeny nie uwzględniamy elementów kosztowych  które leżą w kompete
 •	Pokaż rezerwacje zaplanowane na najbliższy tydzień, wraz z ich statusem.
 
 
-\section*{4. Podstawowe kategorie obiektów i ich atrybuty}
+\subsection*{4. Podstawowe kategorie obiektów i ich atrybuty}
 
-\subsection*{Tabela: Korty}
+\subsubsection*{Tabela: Korty}
 •	KortID (Klucz główny, automatycznie generowany identyfikator)\\
 •	NumerKortu (numer identyfikacyjny kortu)\\
 •	TypKortu (np. nawierzchnia, oświetlenie)\\
 •	CenaGodzinowa (cena za godzinę wynajmu)\\
 •	Inne informacje związane z kortem\\
 
-\subsection*{Tabela: Klienci}
+\subsubsection*{Tabela: Klienci}
 •	KlientID (Klucz główny, automatycznie generowany identyfikator)\\
 •	Imię\\
 •	Nazwisko\\
@@ -68,7 +68,7 @@ W ramach domeny nie uwzględniamy elementów kosztowych  które leżą w kompete
 •	Email\\
 •	Inne informacje o kliencie
 
-\subsection*{Tabela: Rezerwacje}
+\subsubsection*{Tabela: Rezerwacje}
 •	RezerwacjaID (Klucz główny, automatycznie generowany identyfikator)\\
 •	KortID (Klucz obcy, odniesienie do Kortu)\\
 •	KlientID (Klucz obcy, odniesienie do Klienta)\\
@@ -78,7 +78,7 @@ W ramach domeny nie uwzględniamy elementów kosztowych  które leżą w kompete
 •	StatusRezerwacji (status rezerwacji, np. Anulowana, Zrealizowana)\\
 •	Inne informacje związane z rezerwacją\\
 
-\subsection*{Tabela: Pracownicy}
+\subsubsection*{Tabela: Pracownicy}
 •	PracownikID (Klucz główny, automatycznie generowany identyfikator)\\
 •	Imię\\
 •	Nazwisko\\
@@ -87,7 +87,7 @@ W ramach domeny nie uwzględniamy elementów kosztowych  które leżą w kompete
 •	Wynagrodzenie\\
 •	Inne informacje o pracowniku
 
-\subsection*{Tabela: ObsługaKortow}
+\subsubsection*{Tabela: ObsługaKortow}
 •	MaintenanceID (Klucz główny, automatycznie generowany identyfikator)\\
 •	KortID (Klucz obcy, odniesienie do Kortu)\\
 •	PracownikId (pracownik, odpowiedzialny za realizację zadania)\\
@@ -97,7 +97,48 @@ W ramach domeny nie uwzględniamy elementów kosztowych  które leżą w kompete
 •	Koszty (koszty związane z obsługą)\\
 •	Inne informacje związane z obsługą kortów
 
+\section*{Zestaw zadań nr 2}
 
+\subsection*{Formalne definicje}
 
+Tabela: Korty\\
+- KortId (klucz główny, automatycznie generowany identyfikator, np. 1)\\
+- NumerKortu (numer identyfikacyjny kortu np Kort1, Kort2)\\
+- TypKortu (Możliwości: Otwarty, Zamknięty)\\
+- CenaGodzinowa (cena za godzinę wynajmu)\\
+
+Tabela: Klienci\\
+- KlientID (Klucz główny, automatycznie generowany identyfikator, np. 1)\\
+- Imię (max 50 znaków)\\
+- Nazwisko (max 50 znaków)\\
+- Adres (max 200 znaków, opcjonalne)\\
+- Telefon (max 20 znaków, opcjonalne)\\
+- Email (max 50 znaków, opcjonalne)\\
+
+Tabela: Rezerwacje (wszystkie pola wymagane)\\
+- RezerwacjaID (Klucz główny, automatycznie generowany identyfikator, np. 1)\\
+- KortID (Klucz obcy, odniesienie do Kortu)\\
+- KlientID (Klucz obcy, odniesienie do Klienta)\\
+- DataRozpoczęcia (data i godzina rozpoczęcia rezerwacji)\\
+- DataZakończenia (data i godzina zakończenia rezerwacji)\\
+- Opłata (opłata za rezerwację, np 50 PLN)\\
+- StatusRezerwacji (Możliwości: Aktywna, Anulowana, Zrealizowana)\\
+
+Tabela: Pracownicy\\
+- PracownikID (Klucz główny, automatycznie generowany identyfikator)\\
+- Imię (max 50 znaków)\\
+- Nazwisko (max 50 znaków)\\
+- Stanowisko (max 50 znaków, opcjonalne)\\
+
+Tabela: ObsługaKortow\\
+- MaintenanceID (Klucz główny, automatycznie generowany identyfikator)\\
+- KortID (Klucz obcy, odniesienie do Kortu)\\
+- PracownikId (pracownik, odpowiedzialny za realizację zadania)\\
+- DataRaportu (data zgłoszenia konieczności obsługi)\\
+- OpisProblemu (opis problemu, który wymaga obsługi)\\
+- Status (Możliwe: Zgłoszone, Aktualne, Rozwiazane)\\
+- Koszty (koszty związane z obsługą zgłoszenia)\\
+
+\includegraphics{diagram.png}
 
 \end{document}
