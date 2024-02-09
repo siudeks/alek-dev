@@ -1,0 +1,50 @@
+@startuml
+entity Korty {
+    + KortID (PK)
+    --
+    NumerKortu
+    TypKortu
+    CenaGodzinowa
+}
+
+entity Klienci {
+    + KlientID (PK)
+    --
+    Imię
+    Nazwisko
+    Adres
+    Telefon
+    Email
+}
+
+entity Rezerwacje {
+    + RezerwacjaID (PK)
+    --
+    DataRozpoczęcia
+    DataZakończenia
+    Opłata
+    StatusRezerwacji
+}
+ 
+entity Pracownicy {
+    + PracownikID (PK)
+    --
+    Imię
+    Nazwisko
+    Stanowisko
+}
+
+entity ObsługaKortow {
+    + MaintenanceID (PK)
+    --
+    DataRaportu
+    OpisProblemu
+    Status
+    Koszty
+}
+
+Korty ||--o{ Rezerwacje
+Klienci ||--o{ Rezerwacje
+Korty ||--o{ ObsługaKortow
+Pracownicy ||--o{ ObsługaKortow
+@enduml

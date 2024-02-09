@@ -139,6 +139,108 @@ Tabela: ObsługaKortow\\
 - Status (Możliwe: Zgłoszone, Aktualne, Rozwiazane)\\
 - Koszty (koszty związane z obsługą zgłoszenia)\\
 
-\includegraphics{diagram.png}
+\subsection*{Reguły funkcjonowania}
 
+\noindent
+REG/001: Dane do systemu wprowadza Operator Kortów\\
+REG/002: System ma być dostępny w godzinach 6:00-20:00\\
+REG/003: Każdy kort ma unikatową nazwę\\
+REG/004: Dane o pracownikach są tylko do odczytu jako pobierane raz dziennie z zewnętrznego system\\
+REG/005: Dane o klientach są tylko do odczytu jako pobierane raz dziennie z zewnętrznego system\\
+
+\subsection*{Ograniczenia dziedzinowe}
+
+\noindent
+OGR/001: Data rozpoczęcia rezerwacji nie jest datą z przeszłości\\
+OGR/002: Data zakończenia  rezerwacji jest nie wcześniejsza niż data rozpoczęcia rezerwacji
+OGR/003: CenaGodzinowa nie jest ujemna\\
+OGR/004: Email zawiera dokładnie jeden znak '@' s środku\\
+OGR/005: Telefon ma format DDD-DDD-DDD, gdzie D reprezentuje pojecyńczą cyfrę
+
+\subsection*{Transakcje}
+\subsubsection*{TRA/001}
+\textit{Opis:} Edycja kortów\\
+\textit{Uwarunkowania:} Zadaniem transakcji jest wyszukiwanie danych o wybranym korcie i edycja tych danych. Edycję wykonuje Operator Kortów\\
+\textit{Wejście:} Poprawne dane kortu.\\
+\textit{Wyjście:} Dane kortu zapisane w bazie danych\\
+
+\subsubsection*{TRA/002}
+\textit{Opis:} Edycja Rezerwacji\\
+\textit{Uwarunkowania:} Zadaniem transakcji jest wyszukiwanie danych o wybranej rezerwacji i edycja tych danych. Edycję wykonuje Operator Kortów\\
+\textit{Wejście:} Poprawne dane rezerwacji\\
+\textit{Wyjście:} Dane rezerwacji zapisane w bazie danych\\
+
+\subsubsection*{TRA/003}
+\textit{Opis:} Raportowanie problemów\\
+\textit{Uwarunkowania:} Zadaniem transakcji jest wyszukiwanie danych o wybranej rezerwacji i edycja tych danych. Edycję wykonuje dowolny pracownik kortów\\
+\textit{Wejście:} Dane o zgłoszonym problemie\\
+\textit{Wyjście:} Dane o zgłoszonym problemie\\
+
+\section*{Zestaw zadań nr 3}
+\subsection*{Opis zidentyfikowanych encji:}
+Korty: Encja ta przechowuje informacje o dostępnych kortach do wynajęcia. Zawiera klucz główny KortID, który jest automatycznie generowanym identyfikatorem. Każdy kort ma przypisany numer identyfikacyjny (NumerKortu), typ (TypKortu - otwarty lub zamknięty) oraz cenę godzinową wynajmu (CenaGodzinowa).\\
+
+\noindent
+Klienci: Ta encja zawiera dane klientów korzystających z usług wynajmu kortów. Posiada klucz główny KlientID, który jest automatycznie generowanym identyfikatorem. Informacje o kliencie obejmują imię (Imię), nazwisko (Nazwisko), adres (Adres), numer telefonu (Telefon) i adres e-mail (Email).\\
+
+\noindent
+Rezerwacje: Encja ta przechowuje informacje o dokonanych rezerwacjach kortów przez klientów. Posiada klucz główny RezerwacjaID. Każda rezerwacja jest powiązana z konkretnym kortem (KortID) i klientem (KlientID), datą rozpoczęcia (DataRozpoczęcia) i zakończenia (DataZakończenia) rezerwacji, opłatą za rezerwację (Opłata) oraz statusem rezerwacji (StatusRezerwacji).\\
+
+\noindent
+Pracownicy: Ta encja zawiera informacje o pracownikach odpowiedzialnych za obsługę kortów. Posiada klucz główny PracownikID. Dane pracowników obejmują imię (Imię), nazwisko (Nazwisko) i stanowisko (Stanowisko).\\
+
+\noindent
+ObsługaKortow: Encja ta przechowuje informacje o zgłoszeniach obsługi kortów, takich jak konieczność naprawy lub konserwacji. Posiada klucz główny MaintenanceID. Każde zgłoszenie obsługi kortu jest powiązane z konkretnym kortem (KortID), pracownikiem odpowiedzialnym za realizację zadania (PracownikID), datą zgłoszenia (DataRaportu), opisem problemu (OpisProblemu), statusem zgłoszenia (Status) oraz kosztami związanych z obsługą (Koszty).\\
+
+\subsection*{Klucze encji:}
+
+Korty:\\
+Klucz główny: KortID\\
+
+\noindent
+Klienci:\\
+Klucz główny: KlientID\\
+
+\noindent
+Rezerwacje:\\
+Klucz główny: RezerwacjaID\\
+Klucze obce: KortID (odniesienie do Korty), KlientID (odniesienie do Klienci)\\
+
+\noindent
+Pracownicy:\\
+Klucz główny: PracownikID\\
+
+\noindent
+ObsługaKortow:\\
+Klucz główny: MaintenanceID\\
+Klucze obce: KortID (odniesienie do Korty), PracownikID (odniesienie do Pracownicy)\\
+
+\subsection*{Związki między encjami}
+\includegraphics[trim=0 0 0 0,clip,width=\linewidth]{diagram.png}
+
+\subsection*{Związki między encjami}
+
+\noindent
+Korty <-> Rezerwacje:\\
+Korty mogą być zarezerwowane przez klientów. Jest to relacja wiele do wielu, ponieważ jeden kort może być zarezerwowany przez wielu klientów, a jeden klient może zarezerwować wiele kortów. Relacja ta jest odzwierciedlona przez tabelę pośredniczącą Rezerwacje, która przechowuje informacje o rezerwacjach związanych z konkretnymi kortami.\\
+
+\noindent
+Klienci <-> Rezerwacje:\\
+Klienci mogą dokonywać rezerwacji kortów. Jest to również relacja wiele do wielu, ponieważ jeden klient może dokonać wielu rezerwacji, a jedna rezerwacja może być dokonana przez jednego klienta. Relacja ta jest odzwierciedlona przez tabelę pośredniczącą Rezerwacje, która przechowuje informacje o rezerwacjach dokonanych przez konkretne osoby.\\
+
+\noindent
+Korty <-> ObsługaKortow:\\
+Korty mogą wymagać obsługi ze strony pracowników. Jest to relacja jeden do wielu, ponieważ jeden kort może wymagać obsługi, ale wielu pracowników może być odpowiedzialnych za obsługę różnych kortów. Relacja ta jest odzwierciedlona przez tabelę ObsługaKortow, która przechowuje informacje o zgłoszeniach obsługi związanych z konkretnymi kortami.\\
+
+\noindent
+Pracownicy <-> ObsługaKortow:\\
+Pracownicy są odpowiedzialni za obsługę kortów. Jest to również relacja jeden do wielu, ponieważ jeden pracownik może być odpowiedzialny za obsługę wielu kortów, ale każde zgłoszenie obsługi jest powiązane z jednym pracownikiem. Relacja ta jest odzwierciedlona przez tabelę ObsługaKortow, która przechowuje informacje o przypisanych pracownikach do zgłoszeń obsługi.\\
+
+
+\subsection*{Diagram zwiazków encji}
+\includegraphics[trim=0 0 0 0,clip,width=\linewidth]{diagram-zwiazkow-encji.png}
+
+
+\subsection*{Schemat bazy danych}
+\includegraphics[trim=0 0 0 0,clip,width=\linewidth]{schemat-bazy-danych.png}
 \end{document}

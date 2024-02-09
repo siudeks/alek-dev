@@ -1,0 +1,36 @@
+@startuml
+!define Table(name, fields) entity name {
+!define PK(field) + *field
+!define FK(field) o-- field
+!define field(name) - name
+!define endtable() }
+
+Table(Korty, "KortID\nNumerKortu\nTypKortu\nCenaGodzinowa")
+    PK(KortID)
+endtable()
+
+Table(Klienci, "KlientID\nImię\nNazwisko\nAdres\nTelefon\nEmail")
+    PK(KlientID)
+endtable()
+
+Table(Rezerwacje, "RezerwacjaID\nKortID\nKlientID\nDataRozpoczęcia\nDataZakończenia\nOpłata\nStatusRezerwacji")
+    PK(RezerwacjaID)
+    FK(KortID)
+    FK(KlientID)
+endtable()
+
+Table(Pracownicy, "PracownikID\nImię\nNazwisko\nStanowisko")
+    PK(PracownikID)
+endtable()
+
+Table(ObsługaKortow, "MaintenanceID\nKortID\nPracownikId\nDataRaportu\nOpisProblemu\nStatus\nKoszty")
+    PK(MaintenanceID)
+    FK(KortID)
+    FK(PracownikId)
+endtable()
+
+Korty ||--o{ Rezerwacje
+Klienci ||--o{ Rezerwacje
+Korty ||--o{ ObsługaKortow
+Pracownicy ||--o{ ObsługaKortow
+@enduml
